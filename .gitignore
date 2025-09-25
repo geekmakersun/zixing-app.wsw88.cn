@@ -1,0 +1,4 @@
+cache/*
+!cache/
+public/uploadfile/thumb/*
+!public/uploadfile/thumb/
