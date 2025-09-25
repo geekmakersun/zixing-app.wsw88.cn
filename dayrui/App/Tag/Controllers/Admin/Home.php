@@ -234,7 +234,7 @@ class Home extends \Phpcmf\Table
             }
 
             // 清空目录
-            \Phpcmf\Service::M('tag', 'tag')->clear_data();
+            \Phpcmf\Service::M('tag', 'tag')->clear_tree_data();
             file_put_contents(WRITEPATH.'app/tag.sql', '');
             $url = dr_url('tag/home/'.\Phpcmf\Service::L('Router')->method);
 
@@ -284,6 +284,71 @@ class Home extends \Phpcmf\Table
             '每页执行'.$psize.'条数据'.($tpage > 100 ? '，由于数据量多，这个过程就比较缓慢' : '')
         );
     }
+    //一键更新词库地址
+    public function index2_edit() {
+
+        $ct = (int)\Phpcmf\Service::L('input')->get('ct');
+        $page = (int)\Phpcmf\Service::L('input')->get('page');
+        $total = (int)\Phpcmf\Service::L('input')->get('total');
+        $psize = $this->pconfig['limit_index'] ? $this->pconfig['limit_index'] : 20; // 每页处理的数量
+
+        if (!$page) {
+            // 计算数量
+            $total = \Phpcmf\Service::M()->table_site('tag')->where('iscfile=1')->counts();
+            if (!$total) {
+                $this->_html_msg(0, dr_lang('无可用内容生成'));
+            }
+
+            // 清空目录
+            file_put_contents(WRITEPATH.'app/tag.sql', '');
+            $url = dr_url('tag/home/'.\Phpcmf\Service::L('Router')->method);
+
+            $this->_html_msg(1, dr_lang('正在执行中...'), $url.'&total='.$total.'&page='.($page+1));
+            /*
+            $tpage = ceil($total / $psize); // 总页数
+
+
+            if ($tpage > 50) {
+                $sd = $url.'&total='.$total.'&ct=1&page='.($page+1);
+                $zd = $url.'&total='.$total.'&page='.($page+1);
+                $this->_html_msg(2, dr_lang('由于数据量多，这个过程就比较缓慢，手动导入SQL效率更快一些').'<br>
+<a href="'.$sd.'">手动导入</a> &nbsp;&nbsp;
+<a href="'.$zd.'">自动导入</a>
+', '');
+            } else {
+                $this->_html_msg(1, dr_lang('正在执行中...'), $url.'&total='.$total.'&page='.($page+1));
+            }
+                */
+        }
+
+        $tpage = ceil($total / $psize); // 总页数
+
+        // 更新完成
+        if ($page > $tpage) {
+            \Phpcmf\Service::M('cache')->sync_cache();
+            $this->_html_msg(1, dr_lang('更新完成'));
+            /*
+            if ($ct) {
+                $this->_html_msg(1, '请下载<a href="'.dr_url('tag/home/down_index').'">【SQL文件】</a>手动导入到本数据库中');
+            } else {
+                $this->_html_msg(1, dr_lang('更新完成'));
+            }*/
+        }
+
+        $data = \Phpcmf\Service::M()->db->table(SITE_ID.'_tag')->where('iscfile=1')
+            ->limit($psize, $psize * ($page - 1))
+            ->orderBy('id DESC')
+            ->get()->getResultArray();
+        foreach ($data as $t) {
+            \Phpcmf\Service::M('tag', 'tag')->save_index($t, $ct);
+        }
+
+        $url = dr_url('tag/home/'.\Phpcmf\Service::L('Router')->method, ['total' => $total, 'ct' => $ct, 'page' => $page + 1]);
+        $this->_html_msg( 1, dr_lang('正在执行中【%s】...', "$tpage/$page"),
+            $url,
+            '每页执行'.$psize.'条数据'.($tpage > 100 ? '，由于数据量多，这个过程就比较缓慢' : '')
+        );
+    }
 
     // 一键更新词库地址
     public function url_edit() {
@@ -300,7 +365,7 @@ class Home extends \Phpcmf\Table
             }
 
             // 清空目录
-            \Phpcmf\Service::M('tag', 'tag')->clear_data();
+            \Phpcmf\Service::M('tag', 'tag')->clear_url_data();
 
             $url = dr_url('tag/home/'.\Phpcmf\Service::L('Router')->method);
             $this->_html_msg(1, dr_lang('正在执行中...'), $url.'&total='.$total.'&page='.($page+1));
@@ -314,7 +379,10 @@ class Home extends \Phpcmf\Table
             $this->_html_msg(1, dr_lang('更新完成'));
         }
 
-        $data = \Phpcmf\Service::M()->db->table(SITE_ID.'_tag')->limit($psize, $psize * ($page - 1))->orderBy('length(name) desc,displayorder DESC')->get()->getResultArray();
+        $data = \Phpcmf\Service::M()->db->table(SITE_ID.'_tag')
+            ->limit($psize, $psize * ($page - 1))
+            ->orderBy('length(name) desc,displayorder DESC')
+            ->get()->getResultArray();
         foreach ($data as $t) {
             \Phpcmf\Service::M('tag', 'tag')->save_tree($t);
         }

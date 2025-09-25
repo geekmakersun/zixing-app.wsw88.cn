@@ -106,6 +106,11 @@ foreach ($this->site as $siteid) {
                 if (\Phpcmf\Service::M()->db->fieldExists('inputip', $table)) {
                     \Phpcmf\Service::M('table')->edit_field($table, 'inputip', 'VARCHAR(100)', 'NOT NULL', '客户端ip信息');
                 }
+                $table = $prefix . $siteid . '_' . $m['dirname'] . '_time';
+                if (!\Phpcmf\Service::M()->db->fieldExists('error', $table)) {
+                    \Phpcmf\Service::M('table')->add_field($table, 'error', 'tinyint(1)', 'DEFAULT 0', '');
+                }
+
                 $table = $prefix . $siteid . '_' . $m['dirname'] . '_recycle';
                 if (\Phpcmf\Service::M()->db->tableExists($table)) {
                     // 创建字段 删除理由

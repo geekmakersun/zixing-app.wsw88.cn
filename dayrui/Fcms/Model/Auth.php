@@ -160,7 +160,7 @@ class Auth extends \Phpcmf\Model {
                 return dr_return_data(0, IS_DEV ? dr_lang('密码不正确') : dr_lang('登录失败'), 3);
             }
             if ($check && $data['phone']) {
-                return dr_return_data(9, $data['phone'], $data);
+                return dr_return_data("sms", $data['phone'], $data);
             }
         } else {
             $data = $this->db
@@ -415,6 +415,9 @@ class Auth extends \Phpcmf\Model {
 
             $rt = \Phpcmf\Hooks::trigger_callback('admin_login_check', $data, $verify);
             if ($rt && isset($rt['code']) && !$rt['code']) {
+                \Phpcmf\Service::C()->session()->remove('uid');
+                \Phpcmf\Service::C()->session()->remove('admin');
+                \Phpcmf\Service::C()->session()->remove('siteid');
                 return dr_return_data(0, $rt['msg']);
             }
         }
@@ -645,9 +648,10 @@ class Auth extends \Phpcmf\Model {
      * 判断是否具有操作权限
      *
      * @param	string	$uri
+     * @param	bool	$is_index 是否后台首页
      * @return	bool	有权限返回TRUE，否则返回FALSE
      */
-    public function _is_admin_auth($uri = '') {
+    public function _is_admin_auth($uri = '', $is_index = 0) {
 
         $uri = trim((string)$uri, '/');
 
@@ -670,7 +674,7 @@ class Auth extends \Phpcmf\Model {
             // 补全控制器
             $uri = strpos($uri, '/') !== false ? $uri : (\Phpcmf\Service::L('router')->class.'/'.$uri);
             // 补全项目目录
-            APP_DIR && strpos($uri, APP_DIR.'/') === false && $uri = APP_DIR.'/'.$uri;
+            APP_DIR && substr_count(trim($uri, '/'), '/') == 1 && $uri = APP_DIR.'/'.$uri;
         }
 
         // 分隔URI判断权限
@@ -732,7 +736,7 @@ class Auth extends \Phpcmf\Model {
         }
 
         // 验证应用插件的权限
-        if (substr_count($this_uri, '/') == 2) {
+        if (!$is_index && substr_count($this_uri, '/') == 2) {
             list($dir, $c, $m) = explode('/', $this_uri);
             $path = dr_get_app_dir($dir);
             if (is_file($path.'Models/Auth.php')) {

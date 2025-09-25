@@ -89,6 +89,13 @@
                                 <span class="help-block">{dr_lang('后台列表中显示关联模块的数量统计，会影响加载速度')}</span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">生成索引的排序方式</label>
+                            <div class="col-md-9">
+                                <label><input class="form-control " type="text" name="data[order_by]" value="{php echo $data['order_by'] ? $data['order_by'] : 'updatetime desc';}" >
+                                </label><span class="help-block">排序方式变更后需要重新生成索引才能生效</span>
+                            </div>
+                        </div>
                         {/if}
 
                     </div>

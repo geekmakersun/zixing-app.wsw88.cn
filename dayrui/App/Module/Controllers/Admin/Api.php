@@ -59,7 +59,9 @@ class Api extends \Phpcmf\Common
         $ctid = (int)\Phpcmf\Service::L('input')->get('ctid');
         if ($this->module['is_ctable']) {
             // 存在栏目分表
-            $cats = \Phpcmf\Service::M()->table($this->module['share'] ? SITE_ID.'_share_category' : SITE_ID.'_'.$mid.'_category')->where('is_ctable=1 and pid=0')->getAll();
+            $cats = \Phpcmf\Service::M()->table($this->module['share'] ? SITE_ID.'_share_category' : SITE_ID.'_'.$mid.'_category')
+                ->where('is_ctable=1 and pid=0')
+                ->getAll();
             if ($cats && $this->module['share']) {
                 foreach ($cats as $i => $t) {
                     if ($t['mid'] != $mid) {

@@ -9,18 +9,21 @@
             <ul class="dropdown-menu" role="menu">
                 {cache name=module-content}
                 <li>
-                    <a {if $is_open_page}href="{dr_url('tag/home/url_add')}&mid={$t.dirname}" target="_blank"{else}href="javascript:dr_iframe_show('{dr_lang('一键提取词语')}', '{dr_url('tag/home/url_add')}&mid={$t.dirname}', '500px', '300px');"{/if}>{$t.name}</a>
+                    <a {if $is_open_page}href="{dr_url('tag/home/url_add')}&mid={$t.dirname}" target="_blank"{else}href="javascript:dr_iframe_show('{dr_lang('提取词语')}', '{dr_url('tag/home/url_add')}&mid={$t.dirname}', '500px', '300px');"{/if}>{$t.name}</a>
                 </li>
                 {/cache}
             </ul>
         </div>
 
         <label>
-            <a class="btn yellow btn-sm" {if $is_open_page}href="{dr_url('tag/home/url_edit')}" target="_blank"{else}href="javascript:dr_iframe_show('{dr_lang('一键更新词库地址')}', '{dr_url('tag/home/url_edit')}', '500px', '300px');"{/if}>{dr_lang('一键更新词库地址')}</a>
+            <a class="btn yellow btn-sm" {if $is_open_page}href="{dr_url('tag/home/url_edit')}" target="_blank"{else}href="javascript:dr_iframe_show('{dr_lang('更新词库地址')}', '{dr_url('tag/home/url_edit')}', '500px', '300px');"{/if}>{dr_lang('一键更新词库地址')}</a>
         </label>
         {if is_file(IS_USE_MODULE.'Models/Repair.php')}
         <label>
-            <a class="btn green btn-sm" {if $is_open_page}href="{dr_url('tag/home/index_edit')}" target="_blank"{else}href="javascript:dr_iframe_show('{dr_lang('一键生成词库索引')}', '{dr_url('tag/home/index_edit')}', '500px', '300px');"{/if}>{dr_lang('一键生成词库索引')}</a>
+            <a class="btn green btn-sm" {if $is_open_page}href="{dr_url('tag/home/index_edit')}" target="_blank"{else}href="javascript:dr_iframe_show('{dr_lang('生成全部索引')}', '{dr_url('tag/home/index_edit')}', '500px', '300px');"{/if}>{dr_lang('一键生成全部索引')}</a>
+        </label>
+        <label>
+            <a class="btn yellow btn-sm" {if $is_open_page}href="{dr_url('tag/home/index2_edit')}" target="_blank"{else}href="javascript:dr_iframe_show('{dr_lang('生成补录索引')}', '{dr_url('tag/home/index2_edit')}', '500px', '300px');"{/if}>{dr_lang('生成补录索引')}</a>
         </label>
         <label>
             <a class="btn red btn-sm" href="javascript:dr_ajax_url('{dr_url('tag/home/clear_edit')}');">{dr_lang('清空词库索引')}</a>
@@ -121,9 +124,7 @@
                         <ul class="dropdown-menu" role="menu">
                             {loop $return_s $s}
                             {php $tb='tag_'.$s['dirname'];}
-                            <li>
-                                <a href="javascript:;">{$s.name}（{dr_tag_count($s.dirname, $t.name)}） </a>
-                            </li>
+                            <li>{$s.name}（{dr_tag_count($s.dirname, $t.name)}） </li>
                             {/loop}
                         </ul>
                     </div>
@@ -143,9 +144,7 @@
                     {else}
                     {loop $return_s $s}
                     {php $tb='tag_'.$s['dirname'];}
-                    <label>
-                        <a class="btn btn-xs blue" href="javascript:;">{$s.name}（{dr_tag_count($s.dirname, $t.name)}） </a>
-                    </label>
+                    <label>{$s.name}（{dr_tag_count($s.dirname, $t.name)}）</label>
                     {/loop}
 
                     {loop $return_s $s}

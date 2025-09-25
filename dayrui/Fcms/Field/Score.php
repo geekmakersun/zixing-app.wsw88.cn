@@ -1,7 +1,7 @@
 <?php namespace Phpcmf\Field;
 /**
- * https://www.wsw88.cn
- * 网商CMS
+ * {{www.xunruicms.com}}
+ * {{迅睿内容管理框架系统}}
  * 本文件是框架系统文件，二次开发时不可以修改本文件，可以通过继承类方法来重写此文件
  **/
 

@@ -29,7 +29,8 @@ class Radio extends \Phpcmf\Library\A_Field {
                 continue;
             }
             $str.= '<label class="mt-checkbox mt-checkbox-outline">';
-            $str.= '<input type="checkbox" '.(dr_in_array($t['fieldname'], $option['field_ld'][$id][$at]) ? 'checked' : '').' name="data[setting][option][field_ld]['.$id.']['.$at.'][]" value="'.$t['fieldname'].'"> '.$t['name'].' ';
+            $str.= '<input type="checkbox" '.(dr_in_array($t['fieldname'], $option['field_ld'][$id][$at]) ? 'checked' : '').' name="data[setting][option][field_ld]['.$id.']['.$at.'][]" value="'.$t['fieldname'].'"> '
+                .($t['setting']['validate']['required'] ? '<b class="required" aria-required="true"> * </b>' : '').$t['name'].' ';
             $str.= '<span></span>';
             $str.= '</label>';
         }
@@ -48,18 +49,18 @@ class Radio extends \Phpcmf\Library\A_Field {
 
         $data = dr_format_option_array($option['options']);
         if (!$data) {
-            $ld = '需要保存字段配置后才能配置联动关系';
+            $ld = dr_lang('需要保存字段配置后才能配置联动关系');
         } else {
             $ld = '<div class="table-scrollable">';
             $ld.= '<table class="table table-striped table-bordered table-advance ">';
             $ld.= '<thead>';
             $ld.= '<tr>';
-            $ld.= '<th width="120">选项</th>';
-            $ld.= '<th>隐藏字段</th>';
+            $ld.= '<th width="120">'.dr_lang('选项').'</th>';
+            $ld.= '<th>'.dr_lang('隐藏字段').'</th>';
             $ld.= '</tr>';
             $ld.= '</thead>';
             $ld.= '<tbody>';
-            $data['dr_null'] = '未选择时';
+            $data['dr_null'] = dr_lang('未选择时');
             foreach ($data as $id => $name) {
                 $ld.= '<tr>';
                 $ld.= '<td>'.$name.'</td>';
@@ -71,7 +72,7 @@ class Radio extends \Phpcmf\Library\A_Field {
             $ld.= '</div>';
         }
 
-		$option['options'] = isset($option['options']) ? $option['options'] : '选项名称1|1'.PHP_EOL.'选项名称2|2';
+		$option['options'] = isset($option['options']) ? $option['options'] : 'name1|1'.PHP_EOL.'name2|2';
 
 
 
@@ -105,7 +106,6 @@ class Radio extends \Phpcmf\Library\A_Field {
 				<div class="col-md-9">
 					'.$ld.'
 					<span class="help-block">'.dr_lang('当选择某一个选项时会联动显示或隐藏指定的字段').'</span>
-					<span class="help-block">'.dr_lang('需要把参与的字段属性不要设置为必填字段').'</span>
 				</div>
 			</div>
 			<div class="form-group">

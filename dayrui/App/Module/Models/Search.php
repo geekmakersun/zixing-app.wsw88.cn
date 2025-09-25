@@ -47,6 +47,14 @@ class Search extends \Phpcmf\Model {
             }
         }
 
+        // 解密关键词
+        if (isset($get['keyword']) && $get['keyword'] && strpos($get['keyword'], 'CODE') === 0) {
+            $kw = dr_authcode(substr($get['keyword'], 4));
+            if ($kw) {
+                $get['keyword'] = $kw;
+            }
+        }
+
         $this->get = $get;
         $this->catid = $catid;
         $this->module = $module;
@@ -126,14 +134,7 @@ class Search extends \Phpcmf\Model {
                         $catids = [ $catid ];
                     }
                     foreach ($catids as $c) {
-                        if (version_compare(\Phpcmf\Service::M()->db->getVersion(), '5.7.0') < 0) {
-                            // 兼容写法
-                            $fwhere[] = '`'.$table.'`.`catids` LIKE \'%\''.intval($c).'\'%\'';
-                        } else {
-                            // 高版本写法
-                            //$fwhere[] = "(`{$table}`.`catids` <>'' AND JSON_CONTAINS (`{$table}`.`catids`->'$[*]', '\"".intval($c)."\"', '$'))";
-                            $fwhere[] = "(CASE WHEN JSON_VALID(`{$table}`.`catids`) THEN JSON_CONTAINS (`{$table}`.`catids`->'$[*]', '\'".intval($c)."\'', '$') ELSE null END)";
-                        }
+                        $fwhere[] = \Phpcmf\Service::M()->where_json($table, 'catids', intval($c));
                     }
                     $fwhere && $where['catid'] = '('.implode(' OR ', $fwhere).')';
                 } else {
@@ -186,7 +187,7 @@ class Search extends \Phpcmf\Model {
         if ($param['keyword'] != '') {
             $temp = [];
             $sfield = explode(',', $this->module['setting']['search']['field'] ? $this->module['setting']['search']['field'] : 'title,keywords');
-            $search_keyword = explode('|', htmlspecialchars((string)$param['keyword']));
+            $search_keyword = explode('|', addslashes((string)$param['keyword']));
             foreach ($search_keyword as $kw) {
                 $is = 0;
                 if ($sfield) {

@@ -586,8 +586,6 @@ class Module extends \Phpcmf\Common {
             1
         );
 
-        $data = dr_array22array($data, $this->content_model->_format_show_seo($this->module, $data, $page));
-
         if (method_exists($this->content_model, '_call_show_after')) {
             $data = $this->content_model->_call_show_after($data);
         }
@@ -598,6 +596,8 @@ class Module extends \Phpcmf\Common {
         if ($rt2 && isset($rt2['code']) && $rt2['code']) {
             $data = $rt2['data'];
         }
+
+        $data = dr_array22array($data, $this->content_model->_format_show_seo($this->module, $data, $page));
 
         // 传入模板
         \Phpcmf\Service::V()->assign($data);

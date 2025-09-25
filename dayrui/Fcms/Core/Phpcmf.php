@@ -99,8 +99,8 @@ abstract class Common extends \Frame\Controller {
         if (!is_file(MYPATH.'Config/Version.php')) {
             $this->cmf_version = [
                 'id' => 8,
-                'name' => '迅睿CMS开源框架',
-                'version' => '4.6测试版',
+                'name' => 'XunRuiCMS',
+                'version' => 'dev',
                 'downtime' => SYS_TIME,
                 'updatetime' => '--',
             ];
@@ -119,9 +119,9 @@ abstract class Common extends \Frame\Controller {
         // 项目站点不存在
         if (!isset($this->site_info[SITE_ID]) || !$this->site_info[SITE_ID]) {
             if (IS_DEV) {
-                dr_show_error('项目【'.SITE_ID.'】配置文件不存在，请检查cache/config/site.php文件数据是否完整');
+                dr_show_error(dr_lang('项目【%s】配置文件不存在，请检查cache/config/site.php文件数据是否完整', SITE_ID));
             } else {
-                dr_show_error('项目配置文件不存在');
+                dr_show_error(dr_lang('项目配置文件不存在'));
             }
         }
 
@@ -139,7 +139,7 @@ abstract class Common extends \Frame\Controller {
         define('SITE_SEOJOIN', dr_strlen($this->site_info[SITE_ID]['SITE_SEOJOIN']) ? $this->site_info[SITE_ID]['SITE_SEOJOIN'] : '_');
         define('SITE_REWRITE', (int)$this->site_info[SITE_ID]['SITE_REWRITE']);
         define('SITE_TEMPLATE', dr_strlen($this->site_info[SITE_ID]['SITE_TEMPLATE']) ? $this->site_info[SITE_ID]['SITE_TEMPLATE'] : 'default');
-        define('SITE_LANGUAGE', dr_strlen($this->site_info[SITE_ID]['SITE_LANGUAGE']) && is_file(ROOTPATH.'api/language/'.$this->site_info[SITE_ID]['SITE_LANGUAGE'].'/lang.php') ? $this->site_info[SITE_ID]['SITE_LANGUAGE'] : 'zh-cn');
+        define('SITE_LANGUAGE', dr_strlen($this->site_info[SITE_ID]['SITE_LANGUAGE']) && is_file(ROOTPATH.'api/language/'.$this->site_info[SITE_ID]['SITE_LANGUAGE'].'/lang.php') ? $this->site_info[SITE_ID]['SITE_LANGUAGE'] : (is_file(WRITEPATH.'lang.default') ? file_get_contents(WRITEPATH.'lang.default') : 'zh-cn'));
         define('SITE_TIME_FORMAT', dr_strlen($this->site_info[SITE_ID]['SITE_TIME_FORMAT']) ? $this->site_info[SITE_ID]['SITE_TIME_FORMAT'] : 'Y-m-d H:i:s');
 
         // 客户端识别
@@ -973,11 +973,11 @@ abstract class Common extends \Frame\Controller {
                         } elseif ($pos == 'bottom' && method_exists($obj, 'is_bottom_auth') && $obj->is_bottom_auth(APP_DIR)) {
                             $data = array_merge($data , $_clink) ;
                         } else {
-                            CI_DEBUG && log_message('debug', 'Auth类（'.$path.'Models/Auth'.$endfix.'.php'.'）没有定义is_'.$pos.'_auth或者is_'.$pos.'_auth验证失败');
+                            //CI_DEBUG && log_message('debug', 'Auth类（'.$path.'Models/Auth'.$endfix.'.php'.'）没有定义is_'.$pos.'_auth或者is_'.$pos.'_auth验证失败');
                         }
                     } else {
                         $data = array_merge($data , $_clink) ;
-                        CI_DEBUG && log_message('debug', '配置文件（'.$path.'Config/C'.$pos.$endfix.'.php'.'）没有定义权限验证类（'.$path.'Models/Auth'.$endfix.'.php'.'）');
+                       // CI_DEBUG && log_message('debug', '配置文件（'.$path.'Config/C'.$pos.$endfix.'.php'.'）没有定义权限验证类（'.$path.'Models/Auth'.$endfix.'.php'.'）');
                     }
                 }
             }
@@ -1023,9 +1023,9 @@ abstract class Common extends \Frame\Controller {
     {
         // 默认的
         $data = [
-            'couts' => '数据统计',
-            'notice' => '通知提醒',
-            'mylink' => '快捷链接',
+            'couts' => dr_lang('数据统计'),
+            'notice' => dr_lang('通知提醒'),
+            'mylink' => dr_lang('快捷链接'),
         ];
 
         if (is_file(MYPATH.'/Config/Main.php')) {
@@ -1048,23 +1048,6 @@ abstract class Common extends \Frame\Controller {
         }
 
         return $data;
-    }
-
-    /**
-     * 官方短信接口查询
-     */
-    protected function _api_sms_info() {
-
-        $uid = (int)\Phpcmf\Service::L('input')->get('uid');
-        $key = dr_safe_replace(\Phpcmf\Service::L('input')->get('key'));
-        if (!$uid || !$key) {
-            $this->_json(0, dr_lang('uid或者key不能为空'));
-        }
-
-        $url = "https://www.xunruicms.com/index.php?s=vip&c=check&uid={$uid}&key={$key}";
-        $data = dr_catcher_data($url);
-
-        $this->_json(1, $data);
     }
 
     // 版本检查

@@ -34,6 +34,9 @@ class Home extends \Phpcmf\App {
             $data = \Phpcmf\Service::M('Tag', 'tag')->tag_row($tag);
             // 格式化显示
             $field = \Phpcmf\Service::L('cache')->get('tag-'.SITE_ID.'-field');
+            if (!$field) {
+                $field = [];
+            }
             $field['content'] = [
                 'ismain' => 1,
                 'name' => dr_lang('描述信息'),
