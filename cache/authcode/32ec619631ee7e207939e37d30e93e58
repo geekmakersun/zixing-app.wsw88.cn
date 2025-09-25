@@ -1,0 +1,1 @@
+SELECT * FROM `dr_1_product_recycle` ORDER BY `inputtime` desc  LIMIT 10

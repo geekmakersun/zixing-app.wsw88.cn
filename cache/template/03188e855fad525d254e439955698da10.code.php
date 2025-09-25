@@ -1,0 +1,3 @@
+<?php $api = []; ?><?php $list_return = \Phpcmf\Service::V()->list_tag("action=category module=share pid=1"); if ($list_return && is_array($list_return)) extract($list_return, EXTR_OVERWRITE); $count=dr_count($return); if (is_array($return) && $return) { $key=-1; foreach ($return as $t) { $key++; $is_first=$key==0 ? 1 : 0;$is_last=$count==$key+1 ? 1 : 0; ?>
+<?php $api[$key]['id']=$t['id'];  $api[$key]['name']=$t['name'];  $api[$key]['thumb']=dr_thumb($t['thumb']);  $api[$key]['content']=$t['content']; ?>
+<?php } } ?>

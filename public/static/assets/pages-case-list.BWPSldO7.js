@@ -1,0 +1,1 @@
+import{c as e,w as s,i as t,o as a,m as o}from"./index-BoJg4Rqb.js";import{_ as r}from"./_plugin-vue_export-helper.BCo6x5W8.js";const n=r({data:()=>({}),methods:{}},[["render",function(r,n,u,d,i,l){const m=t;return a(),e(m,null,{default:s((()=>[o("案例列表页")])),_:1})}]]);export{n as default};

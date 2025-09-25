@@ -1,0 +1,1 @@
+<?php $api = [];  $mycat=dr_share_cat_value(6, 'atlas'); if ($mycat) { $key=0;foreach ($mycat as $c) {  $api[$key]['title']=$c['title'];  $api[$key]['thumb']=dr_thumb($c['file']);  $key++;} } ?>
