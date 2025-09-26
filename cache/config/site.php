@@ -9,8 +9,8 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 return array (
     1 => array (
         'SITE_NAME' => '紫星',
-        'SITE_DOMAIN' => 'zixing.app.wsw88.cn',
-        'SITE_LOGO' => 'https://zixing.app.wsw88.cn/uploadfile/202509/cc351636a0e79b1.png',
+        'SITE_DOMAIN' => 'zixing-app.wsw88.cn',
+        'SITE_LOGO' => 'https://zixing-app.wsw88.cn/uploadfile/202509/cc351636a0e79b1.png',
         'SITE_MOBILE' => '',
         'SITE_MOBILE_DIR' => 'mobile',
         'SITE_AUTO' => '',
