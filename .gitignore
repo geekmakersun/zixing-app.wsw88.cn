@@ -1,5 +1,8 @@
 cache/*
 !cache/
-!cache/file/
+cache/*/*
+!cache/*/
+!cache/*/.gitkeep
 public/uploadfile/thumb/*
 !public/uploadfile/thumb/
+
