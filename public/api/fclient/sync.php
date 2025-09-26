@@ -5,11 +5,11 @@
  */
 
 return [
-    'id' => '70',
-    'sn' => 'PHPCMF9DAA169DA53B0',
-    'name' => '蓝磨机械',
-    'domain' => 'https://lanmo-app.wsw88.cn',
-    'endtime' => '1829059200',
+    'id' => '74',
+    'sn' => 'PHPCMF97BE3AFF96BFB',
+    'name' => '紫星',
+    'domain' => 'https://zixing.app.wsw88.cn',
+    'endtime' => '1845043200',
     'status' => '2',
     'close_url' => '',
     'pay_url' => '',

@@ -21,7 +21,7 @@ return [
 	'SYS_FONT_SIZE'                 => '', //字号设置
 	'SYS_URL_ONLY'                  => 0, //地址匹配规则
 	'SYS_URL_REL'                   => 1, //地址相对模式
-	'SYS_KEY'                       => 'PHPCMF9f223459d28586f35b5ecaf1a601304e', //安全密匙
+	'SYS_KEY'                       => 'PHPCMF98b0da2afe28f30627bd489fdd65e126', //安全密匙
 	'SYS_CSRF'                      => 0, //开启跨站验证
 	'SYS_CSRF_TIME'                 => 0, //跨站验证有效期
 	'SYS_HTTPS'                     => 1, //https模式
@@ -29,10 +29,10 @@ return [
 	'SYS_ADMIN_MODE'                => '', //禁用后台登录进行模式选择
 	'SYS_ADMIN_LOGINS'              => '', //登录失败N次后，系统将锁定登录
 	'SYS_ADMIN_LOGIN_TIME'          => '', //登录失败锁定后在x分钟内禁止登录
-	'SYS_ADMIN_LOGIN_AES'           => 0, //登录密码加密处理
+	'SYS_ADMIN_LOGIN_AES'           => '', //登录密码加密处理
 	'SYS_ADMIN_OAUTH'               => '', //后台启用快捷登录
-	'SYS_ADMIN_SMS_LOGIN'           => 0, //后台启用短信登录
-	'SYS_ADMIN_SMS_CHECK'           => 0, //后台启用短信二次验证登录
+	'SYS_ADMIN_SMS_LOGIN'           => '', //后台启用短信登录
+	'SYS_ADMIN_SMS_CHECK'           => '', //后台启用短信二次验证登录
 	'SYS_ATTACHMENT_DB'             => '', //附件归属开启模式
 	'SYS_ATTACHMENT_GUEST'          => '', //游客是否附件上传
 	'SYS_ATTACHMENT_PAGESIZE'       => '', //浏览附件分页数

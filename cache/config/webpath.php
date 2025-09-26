@@ -8,6 +8,6 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 return array (
     1 => array (
-        'site' => '/var/www/lanmo-app.wsw88.cn/public/',
+        'site' => '/var/www/zixing.app.wsw88.cn/public/',
     ),
 );

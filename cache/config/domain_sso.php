@@ -8,6 +8,6 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 return [
 
-	'0'                             => 'lanmo-app.wsw88.cn',
+	'0'                             => 'zixing.app.wsw88.cn',
 
 ];

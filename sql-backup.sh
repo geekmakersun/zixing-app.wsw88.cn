@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # 配置数据库信息
-DB_USER="lanmo-app"
-DB_PASSWORD="t-xMP3N(qTdfYoGs"
-DB_NAME="lanmo-app"
+DB_USER="app_zixing"
+DB_PASSWORD="n@Va.hl]15l-cwPt"
+DB_NAME="app_zixing"
 BACKUP_PATH="./backups"
-BACKUP_FILE="$BACKUP_PATH/lanmo-app-db_backup_$(date '+%Y-%m-%d_%H-%M-%S').sql"
+BACKUP_FILE="$BACKUP_PATH/app_zixing-db_backup_$(date '+%Y-%m-%d_%H-%M-%S').sql"
 
 # 确保备份目录存在
 mkdir -p $BACKUP_PATH
