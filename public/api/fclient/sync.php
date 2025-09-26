@@ -8,7 +8,7 @@ return [
     'id' => '74',
     'sn' => 'PHPCMF97BE3AFF96BFB',
     'name' => '紫星',
-    'domain' => 'https://zixing.app.wsw88.cn',
+    'domain' => 'https://zixing-app.wsw88.cn',
     'endtime' => '1845043200',
     'status' => '2',
     'close_url' => '',
