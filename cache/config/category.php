@@ -8,12 +8,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 return array (
     'share' => array (
-        'tree_open' => '0',
+        'tree_open' => '1',
         'ld' => '0',
         'popen' => '1',
         'rname' => '0',
-        'linkfix' => '0',
-        'total' => '0',
+        'linkfix' => '1',
+        'total' => '1',
         'sys_field' =>     array (
             0 => 'order',
             1 => 'use',
@@ -31,6 +31,11 @@ return array (
             ),
             'content' =>         array (
                 'name' => '栏目内容',
+                'width' => '',
+                'func' => '',
+            ),
+            'atlas' =>         array (
+                'name' => '图册',
                 'width' => '',
                 'func' => '',
             ),
